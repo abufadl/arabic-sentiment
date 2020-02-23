@@ -138,7 +138,13 @@ def form(request):
     </div>
     """)
 
-
-if __name__ == '_main__':
-    port1 = int(os.environ.get('PORT', 5000))
-    uvicorn.run(app, host='0.0.0.0', port=port1)
+if __name__ == '__main__':
+    if 'serve' in sys.argv:
+        port = int(os.getenv('PORT', 5042))
+#         port = process.env.port
+        uvicorn.run(app=app, host='0.0.0.0', port=port)
+    
+    
+#if __name__ == '_main__':
+#    port1 = int(os.environ.get('PORT', 5000))
+#    uvicorn.run(app, host='0.0.0.0', port=port1)
