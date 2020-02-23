@@ -74,12 +74,13 @@ async def setup_learner():
         learn = load_learner(path, export_file_name)
         return learn
     except RuntimeError as e:
-        if len(e.args) > 0 and 'CPU-only machine' in e.args[0]:
-            print(e)
-            message = "\n\nThis model was trained with an old version of fastai and will not work in a CPU environment.\n\nPlease update the fastai library in your training environment and export your model again.\n\nSee instructions for 'Returning to work' at https://course.fast.ai."
-            raise RuntimeError(message)
-        else:
-            raise
+        raise
+        #if len(e.args) > 0 and 'CPU-only machine' in e.args[0]:
+        #    print(e)
+        #    message = "\n\nThis model was trained with an old version of fastai and will not work in a CPU environment.\n\nPlease update the fastai library in your training environment and export your model again.\n\nSee instructions for 'Returning to work' at https://course.fast.ai."
+        #    raise RuntimeError(message)
+        #else:
+        #    raise
 
 
 loop = asyncio.get_event_loop()
