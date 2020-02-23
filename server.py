@@ -41,6 +41,14 @@ shutil.copy('models/spm.model', '/root/.fastai/data/arwiki/corpus2_100/tmp')
 export_file_url = 'https://www.googleapis.com/drive/v3/files/1--scwn8SjaGBtIukFF1_K32QucNbAhIe?alt=media&key=AIzaSyArnAhtI95SoFCexh97Xyi0JHI03ghd-_0'
 export_file_name = 'ar_classifier_hard_sp15_multifit.pkl'
 
+
+app = Starlette(debug=True)
+classes = ['-1', '1']
+defaults.device = torch.device('cpu')
+app.add_middleware(CORSMiddleware, allow_origins=['*'], allow_headers=['X-Requested-With', 'Content-Type'])
+app.mount('/root/.fastai/data/arwiki/corpus2_100/tmp', StaticFiles(directory='/root/.fastai/data/arwiki/corpus2_100/tmp'))
+#learn = load_learner('models')
+
 def predict_sentiment(txt):
     #txt =  "كان المكان نظيفا والطعام جيدا. أوصي به للأصدقاء." #  (category 1)
     pred_class, pred_idx, losses = learn.predict(txt)
@@ -75,13 +83,6 @@ loop = asyncio.get_event_loop()
 tasks = [asyncio.ensure_future(setup_learner())]
 learn = loop.run_until_complete(asyncio.gather(*tasks))[0]
 loop.close()
-
-
-app = Starlette(debug=True)
-classes = ['-1', '1']
-defaults.device = torch.device('cpu')
-app.add_middleware(CORSMiddleware, allow_origins=['*'], allow_headers=['X-Requested-With', 'Content-Type'])
-#learn = load_learner('models')
 
 
 @app.route("/classify", methods=["GET"])
