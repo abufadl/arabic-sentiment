@@ -30,17 +30,18 @@ class WeightedLabelSmoothingCrossEntropy(nn.Module):
         return loss*self.eps/c + (1-self.eps) * F.nll_loss(log_preds, target, weight=self.weight, reduction=self.reduction)
         
 #!mkdir -p /root/.fastai/data/arwiki/corpus2_100/tmp/
-data_path = Config.data_path()
-name = f'/arwiki/corpus2_100/tmp/'
-path = data_path/name
-path.mkdir(exist_ok=True, parents=True)
-shutil.copy('models/spm.model', path)
+#data_path = Config.data_path()
+#name = f'/arwiki/corpus2_100/tmp/'
+#path = data_path/name
+#path.mkdir(exist_ok=True, parents=True)
+#shutil.copy('models/spm.model', path)
+shutil.copy('models/spm.model', '/root/.fastai/data/arwiki/corpus2_100/tmp') 
 
 export_file_url = 'https://www.googleapis.com/drive/v3/files/1--scwn8SjaGBtIukFF1_K32QucNbAhIe?alt=media&key=AIzaSyArnAhtI95SoFCexh97Xyi0JHI03ghd-_0'
 export_file_name = 'ar_classifier_hard_sp15_multifit.pkl'
 
 def predict_sentiment(txt):
-    txt =  "كان المكان نظيفا والطعام جيدا. أوصي به للأصدقاء." #  (category 1)
+    #txt =  "كان المكان نظيفا والطعام جيدا. أوصي به للأصدقاء." #  (category 1)
     pred_class, pred_idx, losses = learn.predict(txt)
     print(pred_class)
     print({"prediction": str(pred_class), "scores": sorted(zip(learn.data.classes, map(float, losses)), key=lambda p: p[1], reverse=True)})
