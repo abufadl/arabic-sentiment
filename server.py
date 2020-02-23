@@ -4,6 +4,8 @@
 
 from starlette.applications import Starlette
 from starlette.responses import JSONResponse, HTMLResponse, RedirectResponse
+from starlette.middleware.cors import CORSMiddleware
+from starlette.staticfiles import StaticFiles
 from fastai.text import *
 import uvicorn
 import aiohttp
