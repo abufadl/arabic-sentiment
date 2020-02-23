@@ -35,6 +35,7 @@ class WeightedLabelSmoothingCrossEntropy(nn.Module):
 #path = data_path/name
 #path.mkdir(exist_ok=True, parents=True)
 #shutil.copy('models/spm.model', path)
+path = Path(__file__).parent
 shutil.copy('models/spm.model', '/root/.fastai/data/arwiki/corpus2_100/tmp') 
 
 export_file_url = 'https://www.googleapis.com/drive/v3/files/1--scwn8SjaGBtIukFF1_K32QucNbAhIe?alt=media&key=AIzaSyArnAhtI95SoFCexh97Xyi0JHI03ghd-_0'
