@@ -13,6 +13,8 @@ import asyncio
 import os
 import shutil
 
+import nest_asyncio
+nest_asyncio.apply()
 
 # needed to load learner 
 @np_func
