@@ -74,8 +74,26 @@ def setup_learner():
 #loop.run_forever()
 #loop.close()
 
+# needed to load learner 
+@np_func
+def f1(inp,targ): return f1_score(targ, np.argmax(inp, axis=-1), average='weighted')
+
+class WeightedLabelSmoothingCrossEntropy(nn.Module):
+    def __init__(self, weight, eps:float=0.1, reduction='mean'):
+        super().__init__()
+        self.weight,self.eps,self.reduction = weight,eps,reduction
+        
+    def forward(self, output, target):
+        c = output.size()[-1]
+        log_preds = F.log_softmax(output, dim=-1)
+        if self.reduction=='sum': loss = -log_preds.sum()
+        else:
+            loss = -log_preds.sum(dim=-1)
+            if self.reduction=='mean':  loss = loss.mean()
+        return loss*self.eps/c + (1-self.eps) * F.nll_loss(log_preds, target, weight=self.weight, reduction=self.reduction)
 
 learn = setup_learner()
+learn.loss_func = FlattenedLoss(LabelSmoothingCrossEntropy)
 
 
 @app.route("/classify", methods=["GET"])
@@ -135,24 +153,6 @@ def form(request):
     
     
 if __name__ == '__main__':
-    
-    # needed to load learner 
-    @np_func
-    def f1(inp,targ): return f1_score(targ, np.argmax(inp, axis=-1), average='weighted')
-
-    class WeightedLabelSmoothingCrossEntropy(nn.Module):
-        def __init__(self, weight, eps:float=0.1, reduction='mean'):
-            super().__init__()
-            self.weight,self.eps,self.reduction = weight,eps,reduction
-
-        def forward(self, output, target):
-            c = output.size()[-1]
-            log_preds = F.log_softmax(output, dim=-1)
-            if self.reduction=='sum': loss = -log_preds.sum()
-            else:
-                loss = -log_preds.sum(dim=-1)
-                if self.reduction=='mean':  loss = loss.mean()
-            return loss*self.eps/c + (1-self.eps) * F.nll_loss(log_preds, target, weight=self.weight, reduction=self.reduction)
-    
+        
     port1 = int(os.environ.get('PORT', 5000))
     uvicorn.run(app, host='0.0.0.0', port=port1, reload = True)
