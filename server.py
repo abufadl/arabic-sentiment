@@ -65,7 +65,7 @@ def download_file(url, dest):
     if dest.exists(): return
     with aiohttp.ClientSession() as session:
         with session.get(url) as response:
-            data = await response.read()
+            data = response.read()
             with open(dest, 'wb') as f:
                 f.write(data)
 
