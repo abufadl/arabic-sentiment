@@ -88,7 +88,7 @@ loop = asyncio.new_event_loop()
 asyncio.set_event_loop(asyncio.new_event_loop())
 loop = asyncio.get_event_loop()
 tasks = [asyncio.ensure_future(setup_learner())]
-learn = await loop.run_until_complete(asyncio.gather(*tasks))[0]
+learn = loop.run_until_complete(asyncio.gather(*tasks))[0]
 loop.close()
 
 
