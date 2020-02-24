@@ -66,7 +66,7 @@ def download_file(url, dest):
     if dest.exists(): return
     data = requests.get(url)
     with open(dest, 'wb') as f:
-        f.write(data)
+        f.write(data.content)
 
 
 def setup_learner():
