@@ -36,7 +36,7 @@ class WeightedLabelSmoothingCrossEntropy(nn.Module):
         
 #!mkdir -p /root/.fastai/data/arwiki/corpus2_100/tmp/
 #data_path = Config.data_path()
-#name = f'/arwiki/corpus2_100/tmp/'
+#name = f'arwiki/corpus2_100/tmp/'
 #path = data_path/name
 #path.mkdir(exist_ok=True, parents=True)
 #shutil.copy('models/spm.model', path)
@@ -84,7 +84,8 @@ async def setup_learner():
         #else:
         #    raise
 
-
+loop = asyncio.new_event_loop()
+asyncio.set_event_loop(asyncio.new_event_loop())
 loop = asyncio.get_event_loop()
 tasks = [asyncio.ensure_future(setup_learner())]
 learn = loop.run_until_complete(asyncio.gather(*tasks))[0]
