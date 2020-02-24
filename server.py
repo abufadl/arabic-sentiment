@@ -13,8 +13,8 @@ import asyncio
 import os
 import shutil
 
-import nest_asyncio
-nest_asyncio.apply()
+#import nest_asyncio
+#nest_asyncio.apply()
 
 # needed to load learner 
 @np_func
@@ -89,6 +89,7 @@ async def setup_learner():
 loop = asyncio.get_event_loop()
 tasks = [asyncio.ensure_future(setup_learner())]
 learn = loop.run_until_complete(asyncio.gather(*tasks))[0]
+loop.run_forever()
 #loop.close()
 
 
