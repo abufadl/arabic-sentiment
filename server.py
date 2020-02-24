@@ -13,8 +13,8 @@ import asyncio
 import os
 import shutil
 
-#import nest_asyncio
-#nest_asyncio.apply()
+import nest_asyncio
+nest_asyncio.apply()
 
 # needed to load learner 
 @np_func
@@ -84,12 +84,12 @@ async def setup_learner():
         #else:
         #    raise
 
-loop = asyncio.new_event_loop()
-asyncio.set_event_loop(asyncio.new_event_loop())
+#loop = asyncio.new_event_loop()
+#asyncio.set_event_loop(asyncio.new_event_loop())
 loop = asyncio.get_event_loop()
 tasks = [asyncio.ensure_future(setup_learner())]
 learn = loop.run_until_complete(asyncio.gather(*tasks))[0]
-loop.close()
+#loop.close()
 
 
 @app.route("/classify", methods=["GET"])
@@ -150,4 +150,4 @@ def form(request):
     
 if __name__ == '_main__':
     port1 = int(os.environ.get('PORT', 5000))
-    uvicorn.run(app, host='0.0.0.0', port=port1)
+    uvicorn.run(app, host='0.0.0.0', port=port1, reload = True)
