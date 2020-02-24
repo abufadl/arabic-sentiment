@@ -12,6 +12,7 @@ import aiohttp
 import asyncio
 import os
 import shutil
+import requests
 
 #import nest_asyncio
 #nest_asyncio.apply()
@@ -63,11 +64,9 @@ def predict_sentiment(txt):
 
 def download_file(url, dest):
     if dest.exists(): return
-    with aiohttp.ClientSession() as session:
-        with session.get(url) as response:
-            data = response.read()
-            with open(dest, 'wb') as f:
-                f.write(data)
+    data = requests.get(url)
+    with open(dest, 'wb') as f:
+        f.write(data)
 
 
 def setup_learner():
