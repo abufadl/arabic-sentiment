@@ -61,10 +61,10 @@ def predict_sentiment(txt):
     print({"prediction": str(pred_class), "scores": sorted(zip(learn.data.classes, map(float, losses)), key=lambda p: p[1], reverse=True)})
     return JSONResponse({"prediction": str(pred_class), "scores": sorted(zip(learn.data.classes, map(float, losses)), key=lambda p: p[1], reverse=True)})
 
-async def download_file(url, dest):
+def download_file(url, dest):
     if dest.exists(): return
-    async with aiohttp.ClientSession() as session:
-        async with session.get(url) as response:
+    with aiohttp.ClientSession() as session:
+        with session.get(url) as response:
             data = await response.read()
             with open(dest, 'wb') as f:
                 f.write(data)
