@@ -151,7 +151,7 @@ def form(request):
 #        uvicorn.run(app=app, host='0.0.0.0', port=port)
     
     
-if __name__ == '_main__':
+if __name__ == '__main__':
     
     # needed to load learner 
     @np_func
