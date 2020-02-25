@@ -95,18 +95,18 @@ async def classify(request):
     text_data = body.decode('utf-8')
     # fix text_data and check
     #text_data = "لم تعجبنى نظافة المكان والطعام سيء، لن أعود إلى المكان مستقبلا. نجمة واحدة."
-    prediction = learn.predict(text_data)
+    prediction = learn.predict(clean_text(text_data.strip()))
 
     idx_class = prediction[1].item()
 
     print(str(prediction))
 
-    probs = [{ 'class': classes[i], 'probability': prediction[2][i].item() } for i in range(len(prediction[2]))]
+    probs = [{ 'class': classes[i], 'probability': round(prediction[2][i].item(),5) } for i in range(len(prediction[2]))]
 
     result = {
-        'idx_class': idx_class,
+        #'idx_class': idx_class,
         'class name': classes[idx_class],
-        'probability': prediction[2][idx_class].item(),
+        'probability': round(prediction[2][idx_class].item(), 5),
         'list_prob': probs
     }
     return JSONResponse({'result': result})
