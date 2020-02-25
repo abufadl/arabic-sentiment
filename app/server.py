@@ -85,8 +85,8 @@ loop.close ()
 #============================ routes =====================
 
 @app.route("/classify", methods=["GET"])
-def classify(request):
-    the_text = request.query_params["sentence"]
+async def classify(request):
+    the_text = await request.query_params["sentence"]
     return predict_sentiment(the_text)
 
 
