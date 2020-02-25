@@ -25,7 +25,7 @@
 		function getInferSuccess(rsp) {
 			$('#progressBar').hide();
 			
-			var html_result = "Class Index: <strong>" + rsp.result.idx_class + "</strong>";
+			var html_result = "Result:"; // "Class Index: <strong>" + rsp.result.idx_class + "</strong>";
 
 			for (i=0; i<rsp.result.list_prob.length;i++) {
 				tmp = rsp.result.list_prob[i].class + " = " + rsp.result.list_prob[i].probability;
@@ -74,7 +74,9 @@
 			<p><strong>Arabic Sentiment Classification</strong></p>
 			<p>Using this neural nets model (MULTIFiT), you can classify Arabic reviews or similar text as positive or negative. 
 				Arabic diacritics and Non-Arabic text will be ignored.</p>
-			<p><i>By Abed A. Khooli (Twitter: @akhooli)</i></p>
+			<p><i>By Abed A. Khooli (<a href="https://twitter.com/akhooli">Twitter</a>, 
+				<a href="https://www.linkedin.com/in/akhooli/">LinkedIn</a>, 
+				<a href="https://www.kaggle.com/abedkhooli/">Kaggle</a>)</i></p>
 		</div>
 		<div class="row mb-4">
 
