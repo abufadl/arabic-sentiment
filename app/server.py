@@ -106,8 +106,10 @@ def form(request):
         }
         
      #cleared {
+        margin-top:20px;
         border: 1px solid navy;
         clear:both;
+        width: 600px;
      }
 </style>
 
