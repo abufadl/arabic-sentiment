@@ -104,7 +104,7 @@ async def classify(request):
     probs = [{ 'class': classes[i], 'probability': round(prediction[2][i].item(),5) } for i in range(len(prediction[2]))]
 
     result = {
-        #'idx_class': idx_class,
+        'idx_class': idx_class,
         'class name': classes[idx_class],
         'probability': round(prediction[2][idx_class].item(), 5),
         'list_prob': probs
