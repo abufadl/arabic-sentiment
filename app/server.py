@@ -93,19 +93,21 @@ async def homepage(request):
 async def classify(request):
     body = await request.body()
     text_data = body.decode()
+    # fix text_data and check
+    text_data = "لم تعجبنى نظافة المكان والطعام سيء، لن أعود إلى المكان مستقبلا. نجمة واحدة."
     prediction = learn.predict(text_data)
 
     idx_class = prediction[1].item()
 
     print(str(prediction))
 
-    probs = [{ 'classe': classes[i], 'probability': prediction[2][i].item() } for i in range(len(prediction[2]))]
+    probs = [{ 'class': classes[i], 'probability': prediction[2][i].item() } for i in range(len(prediction[2]))]
 
     result = {
         'idx_class': idx_class,
         'class name': classes[idx_class],
         'probability': prediction[2][idx_class].item(),
-        'lista_prob': probs
+        'list_prob': probs
     }
     return JSONResponse({'result': result})
 
