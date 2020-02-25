@@ -95,7 +95,7 @@ async def classify(request):
     text_data = body.decode()
     prediction = learn.predict(text_data)
 
-    idx_classe = prediction[1].item()
+    idx_class = prediction[1].item()
 
     print(str(prediction))
 
