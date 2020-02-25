@@ -84,68 +84,31 @@ loop.close ()
 
 #============================ routes =====================
 
-@app.route("/classify", methods=["GET"])
-async def classify(request):
-    the_text = await request.query_params["sentence"]
-    return predict_sentiment(the_text)
-
-
 @app.route('/')
-def form(request):
-    return HTMLResponse("""
-    
-    
-<style>
-    * {
-        box-sizing: border-box;
-       }
+async def homepage(request):
+    html_file = path/'static'/'index.html'
+    return HTMLResponse(html_file.open().read())
 
-    #blackBox {
-        width: 800px;
-        padding: 20px;  
-        border: 4px solid black;
-        text-align: left;
-        position: absolute;
-        left: 25%;
-        }
+@app.route('/classify', methods=['POST'])
+async def classify(request):
+    body = await request.body()
+    text_data = body.decode()
+    prediction = learn.predict(text_data)
 
-    #greenBox {
-        width: 600px;
-        padding: 10px;  
-        border: 2px solid green;
-        }
-        
-     #cleared {
-        margin-top:20px;
-        border: 1px solid navy;
-        clear:both;
-        width: 600px;
-        padding: 4px;
-     }
-</style>
+    idx_classe = prediction[1].item()
 
+    print(str(prediction))
 
-    <div id="blackBox">       
-    <div style="text-align:center">
-    <h1> Sentiment Classifier </h2>
-    </div>
+    probs = [{ 'classe': classes[i], 'probability': prediction[2][i].item() } for i in range(len(prediction[2]))]
 
-    
-    <div id="greenBox">
-    Enter your text:  
-    <form action ="/classify" method="get">
-        <input type ="text" name ="sentence" minlength="5" maxlength="100" size="50" value= "كان المكان نظيفا والطعام جيدا. أوصي به للأصدقاء.">
-        <input type="submit" value="Get Sentiment">
-    </form>
-    </div>
-    
-    <div id="cleared">
-    By Abed Khooli (Twitter: @akhooli)
-    </div>
-    
-    </div>
+    result = {
+        'idx_class': idx_class,
+        'class name': classes[idx_class],
+        'probability': prediction[2][idx_class].item(),
+        'lista_prob': probs
+    }
+    return JSONResponse({'result': result})
 
-    """)
 
 if __name__ == '__main__':
     if 'serve' in sys.argv:
