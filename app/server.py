@@ -110,6 +110,7 @@ def form(request):
         border: 1px solid navy;
         clear:both;
         width: 600px;
+        padding: 4px;
      }
 </style>
 
