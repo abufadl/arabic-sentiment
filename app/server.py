@@ -14,6 +14,7 @@ import os
 import shutil
 import requests
 import re
+import sys
         
 #!mkdir -p /root/.fastai/data/arwiki/corpus2_100/tmp/
 data_path = Config.data_path()
@@ -99,7 +100,8 @@ async def classify(request):
 
     idx_class = prediction[1].item()
 
-    print(str(prediction))
+    #print(str(prediction))
+    sys.stdout.write(f'Entry: {text_data}, Prediction: {prediction}')
 
     probs = [{ 'class': classes[i], 'probability': round(prediction[2][i].item(),5) } for i in range(len(prediction[2]))]
 
