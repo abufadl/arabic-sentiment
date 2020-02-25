@@ -54,7 +54,7 @@
 			
 			param_texto = $('#textoReqConsultoria').val();
 
-			$.ajax('/predict', {
+			$.ajax('/classify', {
 				type: "POST",
 				data: param_texto,
 				success: getInferSuccess,
