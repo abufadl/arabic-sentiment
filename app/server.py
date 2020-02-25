@@ -32,6 +32,17 @@ app = Starlette(debug=True)
 classes = ['Negative', 'Positive']
 defaults.device = torch.device('cpu')
 app.add_middleware(CORSMiddleware, allow_origins=['*'], allow_headers=['X-Requested-With', 'Content-Type'])
+app . mount ( '/ static' , StaticFiles ( directory = 'app / static' ))
+
+#
+async  def  download_file ( url , dest ):
+    if  dest . exists (): return
+    async  with  aiohttp . ClientSession () as  session :
+        async  with  session . get ( url ) as  response :
+            data  =  await  response . read ()
+            with  open ( dest , 'wb' ) as  f :
+                f . write ( data )
+                       
 
 accents = re.compile(r'[\u064b-\u0652\u0640]') # harakaat and tatweel (kashida) to remove  
 arabic_punc = re.compile(r'[\u0621-\u063A\u0641-\u064A\u061b\u061f\u060c\u003A\u003D\u002E\u002F\u007C]+') # to keep 
@@ -50,12 +61,6 @@ def predict_sentiment(txt):
     print({"prediction": str(pred_class), "scores": sorted(zip(learn.data.classes, map(float, losses)), key=lambda p: p[1], reverse=True)})
     return JSONResponse({"prediction": str(pred_class), "scores": sorted(zip(learn.data.classes, map(float, losses)), key=lambda p: p[1], reverse=True), "key": "1 = positive, -1 = negative"})
 
-
-def download_file(url, dest):
-    if dest.exists(): return
-    data = requests.get(url)
-    with open(dest, 'wb') as f:
-        f.write(data.content)
 
 
 def setup_learner():
