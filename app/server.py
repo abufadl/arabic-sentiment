@@ -65,20 +65,7 @@ def setup_learner():
         return learn
     except RuntimeError as e:
         raise
-        #if len(e.args) > 0 and 'CPU-only machine' in e.args[0]:
-        #    print(e)
-        #    message = "\n\nThis model was trained with an old version of fastai and will not work in a CPU environment.\n\nPlease update the fastai library in your training environment and export your model again.\n\nSee instructions for 'Returning to work' at https://course.fast.ai."
-        #    raise RuntimeError(message)
-        #else:
-        #    raise
 
-#loop = asyncio.new_event_loop()
-#asyncio.set_event_loop(asyncio.new_event_loop())
-#loop = asyncio.get_event_loop()
-#tasks = [asyncio.ensure_future(setup_learner())]
-#learn = loop.run_until_complete(asyncio.gather(*tasks))[0]
-#loop.run_forever()
-#loop.close()
 
 # needed to load learner 
 @np_func
@@ -117,6 +104,11 @@ def form(request):
         padding: 10px;  
         border: 2px solid green;
         }
+        
+     #cleared {
+        border: 1px solid navy;
+        clear:both;
+     }
 </style>
 
 
@@ -134,9 +126,12 @@ def form(request):
     </form>
     </div>
     
-    </div>
-    <hr />
+    <div id="cleared">
     By Abed Khooli (Twitter: @akhooli)
+    </div>
+    
+    </div>
+
     """)
 
 if __name__ == '__main__':
