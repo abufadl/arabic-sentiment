@@ -101,9 +101,9 @@ async def classify(request):
     idx_class = prediction[1].item()
 
     #print(str(prediction))
-    # try to log activity ................
-    sys.stdout.write(f'Entry: {text_data}, Prediction: {prediction}')
-    sys.stderr.write(f'Entry: {text_data}, Prediction: {prediction}')
+    # try to log activity ................ stdout probably goes to browser, not log
+    #sys.stdout.write(f'Entry: {text_data}, Prediction: {prediction}')
+    sys.stderr.write(f'Client: {request.client.host}, Entry: {text_data}, Prediction: {prediction}\n')
 
     probs = [{ 'class': classes[i], 'probability': round(prediction[2][i].item(),5) } for i in range(len(prediction[2]))]
 
