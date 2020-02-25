@@ -36,20 +36,20 @@
 				html_result += tmp;
 			}
 			
-			$("#divResultado").html(html_result);
-			$('#divResultado').show();
+			$("#divResult").html(html_result);
+			$('#divResult').show();
 		}
 
 		function getInferError(rsp, status, errorThrown) {
-			$('#divAlertErro').html("Erro! Status " + status);
-			$('#divAlertErro').show();
+			$('#divAlertError').html("Error! Status " + status);
+			$('#divAlertError').show();
 			$('#progressBar').hide();
 		}
 
 		function btnOkClick() {
 
-			$('#divAlertErro').hide();
-			$('#divResultado').hide();
+			$('#divAlertError').hide();
+			$('#divResult').hide();
 			$('#progressBar').show();
 			
 			param_texto = $('#textoReqConsultoria').val();
@@ -72,7 +72,9 @@
 	<div class="container-fluid">
 		<div class="center">
 			<p><strong>Arabic Sentiment Classification</strong></p>
-			<p><i>Autor: Abed A. Khooli</i></p>
+			<p>Using this neural nets model (MULTIFiT), you can classify Arabic reviews or similar text as positive or negative. 
+				Arabic diacritics and Non-Arabic text will be ignored.</p>
+			<p><i>By Abed A. Khooli (Twitter: @akhooli)</i></p>
 		</div>
 		<div class="row mb-4">
 
@@ -83,7 +85,7 @@
 				<form id="formPredict" action="/none" onsubmit="return false;">
 					<div class="input-group">
 
-						<textarea placeholder="Enter some Arabic text أدخل نصا عربيا" class="form-control" id="textoReqConsultoria" rows="4"></textarea>
+						<textarea placeholder="Enter an Arabic text to classify  يرجى إدخال نص عربي من عدة كلمات لتصنيفه" class="form-control" id="textoReqConsultoria" rows="4"></textarea>
 						<span class="input-group-btn">
 							<button type="submit" class="btn btn-primary" id="btnOk" onclick="btnOkClick()">Ok</button>
 						</span>
@@ -93,10 +95,10 @@
 			</div>
 
 		</div>
-		<div class="alert alert-danger" role="alert" id="divAlertErro" style="display: none">
-			Erro
+		<div class="alert alert-danger" role="alert" id="divAlertError" style="display: none">
+			Error
 		</div>
-		<div class="alert alert-success" role="alert" id="divResultado" style="display: none">
+		<div class="alert alert-success" role="alert" id="divResult" style="display: none">
 
 		<div class="progress">
 			<div id="progressBar" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%; display: none"></div>
