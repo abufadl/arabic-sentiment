@@ -92,9 +92,9 @@ async def homepage(request):
 @app.route('/classify', methods=['POST'])
 async def classify(request):
     body = await request.body()
-    text_data = body.decode()
+    text_data = body.decode('utf-8')
     # fix text_data and check
-    text_data = "لم تعجبنى نظافة المكان والطعام سيء، لن أعود إلى المكان مستقبلا. نجمة واحدة."
+    #text_data = "لم تعجبنى نظافة المكان والطعام سيء، لن أعود إلى المكان مستقبلا. نجمة واحدة."
     prediction = learn.predict(text_data)
 
     idx_class = prediction[1].item()
