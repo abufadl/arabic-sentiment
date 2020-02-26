@@ -119,5 +119,5 @@ async def classify(request):
 if __name__ == '__main__':
     if 'serve' in sys.argv:
         port = int(os.getenv('PORT', 5042))
-        uvicorn.run(app=app, host='0.0.0.0', port=port, proxy_headers=True)
+        uvicorn.run(app=app, host='0.0.0.0', port=port, proxy_headers=True, log_level="error")
    
