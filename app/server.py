@@ -29,7 +29,7 @@ export_file_url = 'https://www.googleapis.com/drive/v3/files/1D48EeJVzEUAf2Yiomq
 export_file_name = 'ar_classifier_hard_sp15_multifit.pkl'
 
 
-app = Starlette(debug=True)
+app = Starlette(debug=False)
 classes = ['Negative', 'Positive']
 defaults.device = torch.device('cpu')
 app.add_middleware(CORSMiddleware, allow_origins=['*'], allow_headers=['X-Requested-With', 'Content-Type'])
@@ -103,7 +103,7 @@ async def classify(request):
     #print(str(prediction))
     # try to log activity ................ stdout probably goes to browser, not log
     #sys.stdout.write(f'Entry: {text_data}, Prediction: {prediction}')
-    sys.stderr.write(f'Client: {request.client.host}, Entry: {text_data}, Prediction: {prediction}\n')
+    sys.stderr.write(f'Headers: {request.headers}, Client: {request.client.host}, Entry: {text_data}, Prediction: {prediction}\n')
 
     probs = [{ 'class': classes[i], 'probability': round(prediction[2][i].item(),5) } for i in range(len(prediction[2]))]
 
