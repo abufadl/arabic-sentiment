@@ -103,7 +103,7 @@ async def classify(request):
     #print(str(prediction))
     # try to log activity ................ stdout probably goes to browser, not log
     #sys.stdout.write(f'Entry: {text_data}, Prediction: {prediction}')
-    sys.stderr.write(f'Client: {request.client}, Entry: {text_data}, Prediction: {prediction}\n')
+    sys.stderr.write(f'Client: {request.client.host}, Entry: {text_data}, Prediction: {prediction}\n')
 
     probs = [{ 'class': classes[i], 'probability': round(prediction[2][i].item(),5) } for i in range(len(prediction[2]))]
 
@@ -119,5 +119,6 @@ async def classify(request):
 if __name__ == '__main__':
     if 'serve' in sys.argv:
         port = int(os.getenv('PORT', 5042))
-        uvicorn.run(app=app, host='0.0.0.0', port=port, proxy_headers=True, log_level="error")
+        # if log level is error no custom log is written!
+        uvicorn.run(app=app, host='0.0.0.0', port=port, proxy_headers=True, log_level="info")
    
