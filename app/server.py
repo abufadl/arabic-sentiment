@@ -111,7 +111,7 @@ async def classify(request):
     sys.stderr.write(f'User-Agent: {request.headers["user-agent"]}, Client: {request.client.host}, Entry: {text_data}, Prediction: {prediction}\n')
     # try to log to file: arabic_nlp.log
     log_file = path/'arabic_nlp.log'                 
-    with open(log_file, 'a') as logfile:
+    with open(log_file, 'a+') as logfile:
         try:
             logfile.write(f'User-Agent: {request.headers["user-agent"]}, Client: {request.client.host}, Entry: {text_data}, Prediction: {prediction}\n')
         except Exception as e:
