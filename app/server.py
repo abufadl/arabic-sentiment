@@ -25,8 +25,8 @@ shutil.copy('./app/models/spm.model', path_t)
 
 path = Path(__file__).parent
 
-export_file_url = 'https://www.googleapis.com/drive/v3/files/1D48EeJVzEUAf2YiomqZHZJaYlPYTOabk?alt=media&key=AIzaSyArnAhtI95SoFCexh97Xyi0JHI03ghd-_0'
-export_file_name = 'ar_classifier_hard_sp15_multifit.pkl'
+export_file_url = 'https://www.googleapis.com/drive/v3/files/1akuyOKzfXZpecvhglxbIK4xMWAUJrNzO?alt=media&key=AIzaSyArnAhtI95SoFCexh97Xyi0JHI03ghd-_0'
+export_file_name = 'ar_classifier_hard_sp15_multifit_nows_2fp_exp.pkl'
 
 
 app = Starlette(debug=False)
