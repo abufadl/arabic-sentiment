@@ -90,6 +90,11 @@ async def homepage(request):
     html_file = path/'static'/'index.html'
     return HTMLResponse(html_file.open().read())
 
+@app.route('/viewlog')
+async def readlog(request):
+    log_file = path/'arabic_nlp.log'
+    return HTMLResponse(log_file.open().read())
+
 @app.route('/classify', methods=['POST'])
 async def classify(request):
     body = await request.body()
