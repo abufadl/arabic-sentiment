@@ -109,9 +109,13 @@ async def classify(request):
     # try to log activity ................ stdout probably goes to browser, not log
     #sys.stdout.write(f'Entry: {text_data}, Prediction: {prediction}')
     sys.stderr.write(f'User-Agent: {request.headers["user-agent"]}, Client: {request.client.host}, Entry: {text_data}, Prediction: {prediction}\n')
-    # try to log to file: arabic_nlp.log 
-    with open('arabic_nlp.log', 'a') as f:
-        f.write(f'User-Agent: {request.headers["user-agent"]}, Client: {request.client.host}, Entry: {text_data}, Prediction: {prediction}\n')                 
+    # try to log to file: arabic_nlp.log
+    log_file = path/'arabic_nlp.log'                 
+    with open(log_file, 'a') as logfile:
+        try:
+            logfile.write(f'User-Agent: {request.headers["user-agent"]}, Client: {request.client.host}, Entry: {text_data}, Prediction: {prediction}\n')
+        except Exception as e:
+            sys.stderr.write(f'Log file exception: {e}')              
     probs = [{ 'class': classes[i], 'probability': round(prediction[2][i].item(),5) } for i in range(len(prediction[2]))]
 
     result = {
