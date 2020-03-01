@@ -90,11 +90,6 @@ async def homepage(request):
     html_file = path/'static'/'index.html'
     return HTMLResponse(html_file.open().read())
 
-@app.route('/viewlog')
-async def readlog(request):
-    log_file = path/'arabic_nlp.log'
-    return HTMLResponse(log_file.open().read())
-
 @app.route('/classify', methods=['POST'])
 async def classify(request):
     body = await request.body()
@@ -109,13 +104,8 @@ async def classify(request):
     # try to log activity ................ stdout probably goes to browser, not log
     #sys.stdout.write(f'Entry: {text_data}, Prediction: {prediction}')
     sys.stderr.write(f'User-Agent: {request.headers["user-agent"]}, Client: {request.client.host}, Entry: {text_data}, Prediction: {prediction}\n')
-    # try to log to file: arabic_nlp.log
-    log_file = path/'arabic_nlp.log'                 
-    with open(log_file, 'a+') as logfile:
-        try:
-            logfile.write(f'User-Agent: {request.headers["user-agent"]}, Client: {request.client.host}, Entry: {text_data}, Prediction: {prediction}\n')
-        except Exception as e:
-            sys.stderr.write(f'Log file exception: {e}')              
+    # try to log to file: arabic_nlp.log (removed, no persistence)
+                     
     probs = [{ 'class': classes[i], 'probability': round(prediction[2][i].item(),5) } for i in range(len(prediction[2]))]
 
     result = {
