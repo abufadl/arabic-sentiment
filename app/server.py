@@ -25,12 +25,12 @@ shutil.copy('./app/models/spm.model', path_t)
 
 path = Path(__file__).parent
 
-export_file_url = 'https://www.googleapis.com/drive/v3/files/1akuyOKzfXZpecvhglxbIK4xMWAUJrNzO?alt=media&key=AIzaSyArnAhtI95SoFCexh97Xyi0JHI03ghd-_0'
-export_file_name = 'ar_classifier_hard_sp15_multifit_nows_2fp_exp.pkl'
+export_file_url = 'https://www.googleapis.com/drive/v3/files/11IWumpzKAtw3axw_mBaiwZ-abLL9QZBV?alt=media&key=AIzaSyArnAhtI95SoFCexh97Xyi0JHI03ghd-_0'
+export_file_name = 'ar_classifier_reviews_sp15_multifit_nows_2fp_exp.pkl'
 
 
 app = Starlette(debug=False)
-classes = ['Negative', 'Positive']
+classes = ['Mixed', 'Negative', 'Positive']
 defaults.device = torch.device('cpu')
 app.add_middleware(CORSMiddleware, allow_origins=['*'], allow_headers=['X-Requested-With', 'Content-Type'])
 app.mount ('/static' , StaticFiles (directory = 'app/static' ))
